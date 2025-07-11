@@ -1,7 +1,7 @@
 const RPC_USER = "diviuser";
 const RPC_PASSWORD = "divipass123";
 const RPC_PORT = 51473;
-const RPC_HOST = "http://TU_IP_PUBLICA_DEL_NODO"; // Cambia esto por tu IP
+const RPC_HOST = "http://138.68.94.212"; // Cambia esto por tu IP
 
 async function rpcCall(method, params = []) {
   const body = {
