@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DiviMonsterWallet</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <img src="divimonster.png" alt="DiviMonster" class="logo" />
+    <h1>DiviMonsterWallet</h1>
+    <p>💥 La billetera más monstruosa de Divi 💥</p>
+
+    <button onclick="generateWallet()">🎲 Generar nueva billetera</button>
+    <div id="walletInfo" style="display:none;">
+      <p><strong>Dirección:</strong> <span id="walletAddress"></span></p>
+      <p><strong>Semilla:</strong> <span id="mnemonic"></span></p>
+    </div>
+
+    <h2>Operaciones</h2>
+    <button onclick="checkBalance()">🔍 Ver saldo</button>
+    <button onclick="sendDivi()">📤 Enviar DIVI</button>
+    <button onclick="createVault()">🏦 Crear Vault</button>
+
+    <div id="status"></div>
+  </div>
+
+  <script src="wallet.js"></script>
+  <script src="staking.js"></script>
+  <script src="rpc.js"></script>
+</body>
+</html>
