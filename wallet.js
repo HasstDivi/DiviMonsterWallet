@@ -1,36 +1,31 @@
-// === Librerías BIP39/BIP32/BitcoinJS integradas ===
-// Código base reducido de las librerías (omitido aquí por brevedad)
-// Se asumirá que están incluidas como funciones nativas (o embebidas como módulos)
+import { HDNode, utils } from "@ethersproject/hdnode";
+import bs58 from "bs58";
+import * as bitcoin from "bitcoinjs-lib";
 
-// Puedes incluir estas librerías como scripts locales o importarlas al final
-// de este archivo si prefieres mantenerlo modular
+// Red Divi personalizada (similar a Bitcoin pero con otros prefixes)
+const diviNetwork = {
+  messagePrefix: '\x19Divi Signed Message:\n',
+  bech32: 'divi',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4,
+  },
+  pubKeyHash: 0x1e,    // Dirección P2PKH (comienza por 'D')
+  scriptHash: 0x0d,    // Dirección P2SH
+  wif: 0x9e            // WIF
+};
 
-function generateWallet() {
-  const status = document.getElementById('status');
-  status.textContent = "Generando dirección Divi...";
-
-  // Requiere bip39 + bitcoinjs-lib (adaptado para Divi)
-  const mnemonic = bip39.generateMnemonic();
-  const seed = bip39.mnemonicToSeedSync(mnemonic);
-  const root = bitcoin.bip32.fromSeed(seed);
-
-  // Derivación según path Divi estándar (m/44'/301'/0'/0/0)
-  const path = "m/44'/301'/0'/0/0";
-  const child = root.derivePath(path);
+export function generarBilleteraDivi() {
+  const keyPair = bitcoin.ECPair.makeRandom({ network: diviNetwork });
   const { address } = bitcoin.payments.p2pkh({
-    pubkey: child.publicKey,
-    network: {
-      messagePrefix: '\x19Divi Signed Message:\n',
-      bech32: 'divi',
-      bip32: { public: 0x0488b21e, private: 0x0488ade4 },
-      pubKeyHash: 0x1e, // Divi mainnet
-      scriptHash: 0x0d,
-      wif: 0x9e,
-    }
+    pubkey: keyPair.publicKey,
+    network: diviNetwork
   });
+  const wif = keyPair.toWIF();
 
-  document.getElementById('walletAddress').textContent = address;
-  document.getElementById('mnemonic').textContent = mnemonic;
-  document.getElementById('walletInfo').style.display = 'block';
-  status.textContent = "¡Billetera generada con éxito!";
+  return {
+    direccion: address,
+    clavePrivada: wif
+  };
 }
+
