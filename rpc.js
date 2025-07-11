@@ -1,49 +1,40 @@
-// === Configuración del nodo RPC ===
-const RPC_USER = "diviuser";
-const RPC_PASS = "divipass123";
-const RPC_HOST = "http://TU_IP_PUBLICA:51473"; // Reemplaza por la IP real de tu VPS
+const RPC_USER = "TempName";
+const RPC_PASS = "TempSuperPass1599146751398";
+const RPC_PORT = 51473;
+const RPC_HOST = "127.0.0.1"; // Solo funcionará si estás en el mismo servidor donde corre el nodo
 
-async function rpcCall(method, params = []) {
-  const response = await fetch(RPC_HOST, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Basic " + btoa(`${RPC_USER}:${RPC_PASS}`)
-    },
-    body: JSON.stringify({
-      jsonrpc: "1.0",
-      id: "divimonster",
-      method,
-      params
-    })
+async function llamarRPC(method, params = []) {
+  const body = JSON.stringify({
+    jsonrpc: "1.0",
+    id: "divimonster",
+    method,
+    params
   });
 
-  if (!response.ok) {
-    throw new Error(`Error RPC: ${response.status} - ${response.statusText}`);
-  }
+  const response = await fetch(`http://${RPC_USER}:${RPC_PASS}@${RPC_HOST}:${RPC_PORT}/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body
+  });
 
   const data = await response.json();
   if (data.error) throw new Error(data.error.message);
   return data.result;
 }
 
-// === Ver saldo de dirección ===
-async function checkBalance() {
-  const address = document.getElementById("walletAddress").textContent;
-  const status = document.getElementById("status");
-  status.textContent = "Consultando saldo...";
-
-  try {
-    const utxos = await rpcCall("listunspent", [0, 9999999, [address]]);
-    const balance = utxos.reduce((sum, utxo) => sum + utxo.amount, 0);
-    status.textContent = `💰 Saldo actual: ${balance.toFixed(6)} DIVI`;
-  } catch (err) {
-    status.textContent = "⚠️ Error al consultar saldo: " + err.message;
-  }
+export async function obtenerSaldo(direccion) {
+  return await llamarRPC("getreceivedbyaddress", [direccion]);
 }
 
-// === Enviar transacción (esquemático, requiere más seguridad) ===
-async function sendDivi() {
-  const status = document.getElementById("status");
-  status.textContent = "Función de envío aún en construcción (por seguridad).";
+export async function crearVault(direccionOrigen, cantidad, direccionRetencion) {
+  const retencion = (cantidad * 0.05).toFixed(8);
+  const cantidadFinal = (cantidad - retencion).toFixed(8);
+
+  const outputs = {
+    [direccionRetencion]: parseFloat(retencion),
+    [direccionOrigen]: parseFloat(cantidadFinal)
+  };
+
+  const txid = await llamarRPC("sendmany", ["", outputs]);
+  return txid;
 }
