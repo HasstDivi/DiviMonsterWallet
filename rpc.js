@@ -1,12 +1,12 @@
-const RPC_USER = "diviuser";
-const RPC_PASSWORD = "divipass123";
+const RPC_USER = "DivinoMonstruo";
+const RPC_PASSWORD = "divipachuli123";
 const RPC_PORT = 51473;
-const RPC_HOST = "http://138.68.94.212"; // Cambia esto por tu IP
+const RPC_HOST = "http://138.68.94.212"; // IP de tu VPS
 
 async function rpcCall(method, params = []) {
   const body = {
     jsonrpc: "1.0",
-    id: "curltext",
+    id: "curltest",
     method,
     params,
   };
@@ -21,6 +21,12 @@ async function rpcCall(method, params = []) {
   });
 
   const data = await response.json();
+  if (data.error) {
+    throw new Error(data.error.message);
+  }
   return data.result;
 }
+
+
+
 
