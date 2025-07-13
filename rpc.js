@@ -1,34 +1,31 @@
-// rpc.js
-const rpcUser = "divimonstruo";
-const rpcPassword = "divipachuli123";
-const rpcPort = 51473; // Puerto por defecto de RPC de Divi
-const rpcHost = "138.68.94.212"; // Cambiar si usas IP o dominio distinto
+const express = require('express');
+const axios = require('axios');
+const bodyParser = require('body-parser');
 
-async function rpcCall(method, params = []) {
-  const body = {
-    jsonrpc: "1.0",
-    id: "divi",
-    method,
-    params
-  };
+const app = express();
+const PORT = 51473;
 
-  const response = await fetch(`${rpcHost}:${rpcPort}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Basic " + btoa(`${rpcUser}:${rpcPassword}`)
-    },
-    body: JSON.stringify(body)
-  });
+app.use(bodyParser.json());
 
-  const json = await response.json();
-  if (json.error) throw new Error(json.error.message);
-  return json.result;
-}
+const RPC_URL = 'http://127.0.0.1:51473/';
+const RPC_USER = 'divimonstruo';
+const RPC_PASSWORD = 'divipachuli123';
 
+app.post('/', async (req, res) => {
+  try {
+    const response = await axios.post(RPC_URL, req.body, {
+      auth: {
+        username: RPC_USER,
+        password: RPC_PASSWORD
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('❌ Error en el proxy:', error.message);
+    res.status(500).json({ error: 'Proxy error', message: error.message });
+  }
+});
 
-
-
-
-
-
+app.listen(PORT, () => {
+  console.log(`✅ Proxy escuchando en http://localhost:${PORT}`);
+});
