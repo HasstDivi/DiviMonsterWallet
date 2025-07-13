@@ -1,4 +1,4 @@
-const RPC_URL = "https://138.68.94.212:51473/";
+const RPC_URL = "http://138.68.94.212:51473/";
 
 async function rpcCall(method, params = []) {
   const body = {
@@ -10,9 +10,7 @@ async function rpcCall(method, params = []) {
 
   const response = await fetch(RPC_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body)
   });
 
@@ -20,5 +18,7 @@ async function rpcCall(method, params = []) {
   if (data.error) throw new Error(data.error.message);
   return data.result;
 }
+
+
 
   
