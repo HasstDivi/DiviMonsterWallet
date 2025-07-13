@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>DiviMonsterWallet</title>
-  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-  <div class="contenedor">
-    <img src="DiviMonster (2).png" alt="DiviMonster" class="logo" />
-    <h1>DiviMonsterWallet</h1>
-    <p>La billetera más monstruosa de Divi</p>
+  <img src="DiviMonster (2).png" alt="DiviMonster" width="120">
+  <h1>DiviMonsterWallet</h1>
+  <p>La billetera más monstruosa de Divi</p>
 
-    <div class="acciones">
-      <button id="verSaldo">🔍 Ver saldo</button>
-      <button id="enviarDivi">📤 Enviar DIVI</button>
-      <button id="crearBoveda">🗄️ Crear bóveda</button>
-      <button id="generarDireccion">🔐 Generar dirección</button>
-      <button id="depositarDivi">💰 Depositar DIVI</button>
-      <button id="verDireccion">📬 Ver dirección</button>
-      <button id="verRecompensas">🎁 Ver recompensas</button>
-    </div>
-
-    <div id="estado" class="estado"></div>
+  <div class="acciones">
+    <button id="verSaldo">🔍 Ver saldo</button>
+    <button id="enviarDivi">📤 Enviar DIVI</button>
+    <button id="crearBoveda">🏦 Crear bóveda</button>
+    <button id="generarDireccion">📬 Generar dirección</button>
+    <button id="depositarDivi">🔥 Depositar DIVI</button>
+    <button id="verDireccion">📫 Ver dirección</button>
+    <button id="verRecompensas">🎁 Ver recompensas</button>
   </div>
+
+  <div id="estado" class="estado"></div>
 
   <script src="rpc.js"></script>
   <script src="billetera.js"></script>
   <script src="staking.js"></script>
+
   <script>
     document.getElementById("verSaldo").addEventListener("click", verSaldo);
     document.getElementById("enviarDivi").addEventListener("click", enviarDivi);
@@ -39,6 +37,7 @@
   </script>
 </body>
 </html>
+
 
 
 
