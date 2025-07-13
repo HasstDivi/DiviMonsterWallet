@@ -1,3 +1,12 @@
+window.onload = function () {
+  document.getElementById("verSaldo").addEventListener("click", verSaldo);
+  document.getElementById("enviarDivi").addEventListener("click", enviarDivi);
+  document.getElementById("crearBoveda").addEventListener("click", crearBoveda);
+  document.getElementById("generarDireccion").addEventListener("click", generarDireccion);
+  document.getElementById("depositarDivi").addEventListener("click", depositarDivi);
+  document.getElementById("verDireccion").addEventListener("click", verDireccion);
+  document.getElementById("verRecompensas").addEventListener("click", verRecompensas);
+};
 async function verSaldo() {
   try {
     const address = await rpcCall("getaccountaddress", [""]);
@@ -70,13 +79,6 @@ async function verRecompensas() {
     document.getElementById("resultado").innerText = "❌ Error al ver recompensas: " + e.message;
   }
 }
-document.getElementById("verSaldo").addEventListener("click", verSaldo);
-document.getElementById("enviarDivi").addEventListener("click", enviarDivi);
-document.getElementById("crearBoveda").addEventListener("click", crearBoveda);
-document.getElementById("generarDireccion").addEventListener("click", generarDireccion);
-document.getElementById("verDireccion").addEventListener("click", verDireccion);
-document.getElementById("depositarDivi").addEventListener("click", depositarDivi);
-document.getElementById("verRecompensas").addEventListener("click", verRecompensas);
 
 
  
