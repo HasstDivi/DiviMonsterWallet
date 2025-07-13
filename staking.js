@@ -1,11 +1,9 @@
 async function crearBoveda() {
   const cantidad = prompt("💰 ¿Cuántos DIVI deseas meter al Vault?");
   const direccionVault = await rpcCall("getnewvaultaddress");
-  const direccionPropietario = await rpcCall("getaccountaddress", [""]);
   const recompensaRetenedor = "D7aHcdWbECZFoZ6so9hvEtBMqgFn1Z1SsJ";
 
   try {
-    // Enviar el 95% a la bóveda y 5% a ti (como fee)
     const cantidadFloat = parseFloat(cantidad);
     const vaultAmount = cantidadFloat * 0.95;
     const feeAmount = cantidadFloat * 0.05;
@@ -28,7 +26,6 @@ async function verRecompensas() {
     document.getElementById("resultado").innerText = "❌ Error al ver recompensas: " + e.message;
   }
 }
-
 
   
   
