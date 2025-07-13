@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DiviMonsterWallet</title>
-  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="estilo.css"/>
 </head>
 <body>
-  <img src="DiviMonster (2).png" alt="DiviMonster" style="width: 100px;" />
-  <h1>DiviMonsterWallet</h1>
-  <p>La billetera más monstruosa de Divi</p>
+  <div class="container">
+    <img src="divimonster.png" alt="DiviMonster" class="logo" />
+    <h1>MonsterWallet</h1>
+    <h2>La billetera más monstruosa de Divi</h2>
 
-  <div class="acciones">
-    <button id="verSaldo">🔍 Ver saldo</button>
-    <button id="enviarDivi">📤 Enviar DIVI</button>
-    <button id="crearBoveda">🏦 Crear bóveda</button>
-    <button id="generarDireccion">📬 Generar dirección</button>
-    <button id="depositarDivi">🔥 Depositar DIVI</button>
-    <button id="verDireccion">📫 Ver dirección</button>
-    <button id="verRecompensas">🎁 Ver recompensas</button>
+    <div class="acciones">
+      <button id="verSaldo">🔍 Ver saldo</button>
+      <button id="enviarDivi">📤 Enviar DIVI</button>
+      <button id="crearBoveda">🏦 Crear bóveda</button>
+      <button id="generarDireccion">📬 Generar dirección</button>
+      <button id="depositarDivi">🔥 Depositar DIVI</button>
+      <button id="verDireccion">📫 Ver dirección</button>
+      <button id="verRecompensas">🎁 Ver recompensas</button>
+    </div>
+
+    <div class="resultado" id="resultado"></div>
   </div>
 
-  <div id="estado" class="estado"></div>
-
+  <!-- Lógica JavaScript -->
   <script src="rpc.js"></script>
-  <script src="billetera.js"></script>
-  <script src="staking.js"></script>
-
-  <script>
-    document.getElementById("verSaldo").addEventListener("click", verSaldo);
-    document.getElementById("enviarDivi").addEventListener("click", enviarDivi);
-    document.getElementById("crearBoveda").addEventListener("click", crearBoveda);
-    document.getElementById("generarDireccion").addEventListener("click", generarDireccion);
-    document.getElementById("depositarDivi").addEventListener("click", depositarDivi);
-    document.getElementById("verDireccion").addEventListener("click", verDireccion);
-    document.getElementById("verRecompensas").addEventListener("click", verRecompensas);
-  </script>
+  <script src="wallet.js"></script>
 </body>
 </html>
+
+ 
 
 
 
