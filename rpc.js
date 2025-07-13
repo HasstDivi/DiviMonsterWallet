@@ -1,26 +1,29 @@
-const RPC_USER = "DiviMonstruo";
-const RPC_PASSWORD = "divipachuli123";
-const RPC_URL = "http://138.68.94.212:51473/";
+// rpc.js
+const rpcUser = "divimonstruo";
+const rpcPassword = "divipachuli123";
+const rpcPort = 51473; // Puerto por defecto de RPC de Divi
+const rpcHost = "138.68.94.212"; // Cambiar si usas IP o dominio distinto
 
 async function rpcCall(method, params = []) {
-  const response = await fetch(RPC_URL, {
+  const body = {
+    jsonrpc: "1.0",
+    id: "divi",
+    method,
+    params
+  };
+
+  const response = await fetch(`${rpcHost}:${rpcPort}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Basic " + btoa(`${rpcUser}:${rpcPassword}`)
     },
-    body: JSON.stringify({
-      jsonrpc: "1.0",
-      id: "divimonster",
-      method,
-      params,
-    }),
+    body: JSON.stringify(body)
   });
 
-  const data = await response.json();
-  if (data.error) {
-    throw new Error(data.error.message);
-  }
-  return data.result;
+  const json = await response.json();
+  if (json.error) throw new Error(json.error.message);
+  return json.result;
 }
 
 
