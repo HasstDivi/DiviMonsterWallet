@@ -1,48 +1,45 @@
-// wallet.js
+async function verSaldo() {
+  try {
+    const address = await rpcCall("getaccountaddress", [""]);
+    const balance = await rpcCall("getbalance", [""]);
+    document.getElementById("resultado").innerText = `💰 Saldo de ${address}: ${balance} DIVI`;
+  } catch (e) {
+    document.getElementById("resultado").innerText = "❌ Error al consultar saldo: " + e.message;
+  }
+}
 
-import { openVault, checkVaultStatus, verVaults } from './vaults.js';
+async function enviarDivi() {
+  const destino = prompt("📤 Introduce la dirección de destino:");
+  const cantidad = prompt("💸 Introduce la cantidad de DIVI a enviar:");
+  try {
+    const txid = await rpcCall("sendtoaddress", [destino, parseFloat(cantidad)]);
+    document.getElementById("resultado").innerText = `✅ Transacción enviada. ID: ${txid}`;
+  } catch (e) {
+    document.getElementById("resultado").innerText = "❌ Error al enviar DIVI: " + e.message;
+  }
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-  const btnCrearVault = document.getElementById('crearVaultBtn');
-  const inputCantidad = document.getElementById('cantidadDivi');
-  const resultadoDiv = document.getElementById('resultado');
-  const estadoDiv = document.getElementById('estadoVault');
+async function generarDireccion() {
+  try {
+    const nueva = await rpcCall("getnewaddress");
+    document.getElementById("resultado").innerText = `📬 Nueva dirección: ${nueva}`;
+  } catch (e) {
+    document.getElementById("resultado").innerText = "❌ Error al generar dirección: " + e.message;
+  }
+}
 
-  btnCrearVault.addEventListener('click', async () => {
-    const cantidad = inputCantidad.value;
-    resultadoDiv.innerHTML = '⏳ Procesando...';
+async function verDireccion() {
+  try {
+    const direccion = await rpcCall("getaccountaddress", [""]);
+    document.getElementById("resultado").innerText = `🏠 Dirección principal: ${direccion}`;
+  } catch (e) {
+    document.getElementById("resultado").innerText = "❌ Error al obtener dirección: " + e.message;
+  }
+}
 
-    try {
-      const txid = await openVault(cantidad);
-      resultadoDiv.innerHTML = `✅ Vault creado con éxito. TXID: <code>${txid}</code>`;
-    } catch (error) {
-      resultadoDiv.innerHTML = `❌ Error al crear el Vault: ${error.message}`;
-    }
-  });
+async function depositarDivi() {
+  alert("💡 Deposita los DIVI desde otro wallet a tu dirección mostrada con 'Ver dirección'");
+}
 
-  const btnEstado = document.getElementById('estadoVaultBtn');
-  btnEstado.addEventListener('click', async () => {
-    estadoDiv.innerHTML = '⏳ Consultando...';
 
-    try {
-      const estado = await checkVaultStatus();
-      if (!estado) {
-        estadoDiv.innerHTML = '❌ No se pudo obtener información del Vault';
-        return;
-      }
-
-      estadoDiv.innerHTML = `
-        <ul>
-          <li>📦 Activo: ${estado.activo ? '✅ Sí' : '❌ No'}</li>
-          <li>💰 Balance: ${estado.balance} DIVI</li>
-          <li>🎟️ Participa en lotería: ${estado.participandoLoteria ? '🎉 Sí' : '🚫 No'}</li>
-          <li>⏱️ Edad: ${estado.edad} bloques</li>
-          <li>🕒 Última recompensa: ${estado.ultimaRecompensa}</li>
-        </ul>
-      `;
-    } catch (error) {
-      estadoDiv.innerHTML = `❌ Error: ${error.message}`;
-    }
-  });
-});
-
+ 
