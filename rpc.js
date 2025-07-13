@@ -3,7 +3,7 @@ const RPC_URL = "http://138.68.94.212:51473/";
 async function rpcCall(method, params = []) {
   const body = {
     jsonrpc: "1.0",
-    id: "divimonster",
+    id: "divimonstruo",
     method,
     params
   };
