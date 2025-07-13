@@ -1,31 +1,24 @@
-const express = require('express');
-const axios = require('axios');
-const bodyParser = require('body-parser');
+const RPC_URL = "https://138.68.94.212:51473/";
 
-const app = express();
-const PORT = 51473;
+async function rpcCall(method, params = []) {
+  const body = {
+    jsonrpc: "1.0",
+    id: "divimonster",
+    method,
+    params
+  };
 
-app.use(bodyParser.json());
+  const response = await fetch(RPC_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
 
-const RPC_URL = 'http://127.0.0.1:51473/';
-const RPC_USER = 'divimonstruo';
-const RPC_PASSWORD = 'divipachuli123';
+  const data = await response.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.result;
+}
 
-app.post('/', async (req, res) => {
-  try {
-    const response = await axios.post(RPC_URL, req.body, {
-      auth: {
-        username: RPC_USER,
-        password: RPC_PASSWORD
-      }
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error('❌ Error en el proxy:', error.message);
-    res.status(500).json({ error: 'Proxy error', message: error.message });
-  }
-});
-
-app.listen(PORT, () => {
-  console.log(`✅ Proxy escuchando en http://localhost:${PORT}`);
-});
+  
