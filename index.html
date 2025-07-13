@@ -2,62 +2,39 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DiviMonsterWallet</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #1e1e1e;
-      color: #eee;
-      padding: 2rem;
-      text-align: center;
-    }
-    h1 {
-      color: #ff4c4c;
-    }
-    input, button {
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      margin: 0.5rem;
-    }
-    button {
-      cursor: pointer;
-      background-color: #ff4c4c;
-      border: none;
-      color: white;
-      border-radius: 5px;
-    }
-    #resultado, #estadoVault {
-      margin-top: 1rem;
-      background-color: #2a2a2a;
-      padding: 1rem;
-      border-radius: 10px;
-    }
-    img {
-      max-width: 200px;
-      margin-bottom: 1rem;
-    }
-  </style>
+  <link rel="stylesheet" href="estilo.css" />
 </head>
 <body>
+  <div class="contenedor">
+    <img src="DiviMonster (2).png" alt="DiviMonster" class="logo" />
+    <h1>DiviMonsterWallet</h1>
+    <p>La billetera más monstruosa de Divi</p>
 
-  <img src="divimonster.png" alt="DiviMonster Logo" />
-  <h1>DiviMonsterWallet</h1>
-  <p>💥 La billetera más monstruosa de Divi 💥</p>
+    <div class="acciones">
+      <button id="verSaldo">🔍 Ver saldo</button>
+      <button id="enviarDivi">📤 Enviar DIVI</button>
+      <button id="crearBoveda">🗄️ Crear bóveda</button>
+      <button id="generarDireccion">🔐 Generar dirección</button>
+      <button id="depositarDivi">💰 Depositar DIVI</button>
+    </div>
 
-  <div>
-    <input type="number" id="cantidadDivi" placeholder="Cantidad DIVI" />
-    <button id="crearVaultBtn">🔐 Abrir Vault</button>
+    <div id="estado" class="estado"></div>
   </div>
 
-  <div id="resultado"></div>
-
-  <div>
-    <button id="estadoVaultBtn">📊 Ver Estado del Vault</button>
-  </div>
-
-  <div id="estadoVault"></div>
-
-  <script type="module" src="./wallet.js"></script>
+  <script src="rpc.js"></script>
+  <script src="billetera.js"></script>
+  <script src="staking.js"></script>
+  <script>
+    document.getElementById("verSaldo").addEventListener("click", verSaldo);
+    document.getElementById("enviarDivi").addEventListener("click", enviarDivi);
+    document.getElementById("crearBoveda").addEventListener("click", crearBoveda);
+    document.getElementById("generarDireccion").addEventListener("click", generarDireccion);
+    document.getElementById("depositarDivi").addEventListener("click", depositarDivi);
+  </script>
 </body>
 </html>
+
+  
+ 
