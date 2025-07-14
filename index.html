@@ -1,37 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DiviMonsterWallet</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>MonsterWallet</title>
+  <link rel="stylesheet" href="estilo.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="contenedor">
     <img src="divimonster.png" alt="DiviMonster" class="logo" />
     <h1>MonsterWallet</h1>
-    <h2>La billetera más monstruosa de Divi</h2>
+    <p class="eslogan">La billetera más monstruosa de Divi</p>
 
-    <div class="acciones">
-      <button id="verSaldo">🔍 Ver saldo</button>
-      <button id="enviarDivi">📤 Enviar DIVI</button>
-      <button id="crearBoveda">🏦 Crear bóveda</button>
-      <button id="generarDireccion">📬 Generar dirección</button>
-      <button id="depositarDivi">🔥 Depositar DIVI</button>
-      <button id="verDireccion">📫 Ver dirección</button>
-      <button id="verRecompensas">🎁 Ver recompensas</button>
-    </div>
+    <button id="enviar">📤 Enviar DIVI</button>
+    <button id="crearVault">🏛️ Crear bóveda</button>
+    <button id="depositar">🔥 Depositar DIVI</button>
 
-    <div class="resultado" id="resultado"></div>
+    <div id="direccion" style="margin-top: 10px; color: white;"></div>
   </div>
 
-  <!-- Lógica JavaScript -->
-  <script src="rpc.js"></script>
   <script src="wallet.js"></script>
-<script src="staking.js"></script>
-
 </body>
 </html>
+
 
  
 
