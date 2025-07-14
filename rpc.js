@@ -1,4 +1,4 @@
-const RPC_PROXY_URL = 'http://138.68.94.212:3000/rpc-proxy'; // Cambia por tu IP si es distinta
+const RPC_PROXY_URL = 'http://138.68.94.212:3000/rpc-proxy'; // o la IP correcta
 
 window.rpcCall = async function(method, params = []) {
   try {
