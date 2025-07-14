@@ -2,24 +2,55 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MonsterWallet</title>
   <link rel="stylesheet" href="estilo.css" />
 </head>
 <body>
-  <div class="contenedor">
+  <div class="container">
     <img src="divimonster.png" alt="DiviMonster" class="logo" />
     <h1>MonsterWallet</h1>
-    <p class="eslogan">La billetera más monstruosa de Divi</p>
+    <p class="subtitulo">La billetera más monstruosa de Divi</p>
 
-    <button id="enviar">📤 Enviar DIVI</button>
-    <button id="crearVault">🏛️ Crear bóveda</button>
-    <button id="depositar">🔥 Depositar DIVI</button>
+    <!-- Botón que genera y muestra la dirección solo una vez -->
+    <button onclick="depositarDIVI()">🔥 Depositar DIVI</button>
 
-    <div id="direccion" style="margin-top: 10px; color: white;"></div>
+    <!-- Sección donde se mostrará la dirección generada -->
+    <div id="direccionContainer" style="margin-top: 20px; display: none;">
+      <strong>Tu dirección:</strong>
+      <p id="direccionDIVI" style="word-wrap: break-word;"></p>
+    </div>
   </div>
 
-  <script src="wallet.js"></script>
+  <script>
+    async function depositarDIVI() {
+      const direccionGuardada = localStorage.getItem('direccionDivi');
+      const contenedor = document.getElementById('direccionContainer');
+      const texto = document.getElementById('direccionDIVI');
+
+      if (direccionGuardada) {
+        texto.textContent = direccionGuardada;
+        contenedor.style.display = 'block';
+        return;
+      }
+
+      try {
+        const respuesta = await fetch('http://TU_IP_DEL_BACKEND:3000/generar-direccion');
+        const datos = await respuesta.json();
+
+        if (datos && datos.direccion) {
+          localStorage.setItem('direccionDivi', datos.direccion);
+          texto.textContent = datos.direccion;
+          contenedor.style.display = 'block';
+        } else {
+          alert('Error generando la dirección');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('No se pudo conectar al backend');
+      }
+    }
+  </script>
 </body>
 </html>
 
