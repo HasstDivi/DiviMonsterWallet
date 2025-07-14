@@ -1,53 +1,90 @@
 let direccionUnica = null;
+const backendURL = "http://138.68.94.212:3000"; // Cambia esto si usas otro dominio/IP
 
-async function depositarDIVI() {
-  if (direccionUnica) {
-    alert("Tu dirección de depósito es:\n" + direccionUnica);
-    return;
-  }
-
+// 🔥 Depositar DIVI (genera dirección única + muestra saldo)
+async function depositarDivi() {
   try {
-    const respuesta = await fetch("https://138.68.94.212:3000/deposit", {
+    const res = await fetch(`${backendURL}/deposit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
 
-    const data = await respuesta.json();
-
+    const data = await res.json();
     if (data.direccion) {
       direccionUnica = data.direccion;
-      alert("Tu dirección de depósito es:\n" + direccionUnica);
+      alert("Tu dirección única de depósito es:\n" + direccionUnica);
       mostrarSaldo();
     } else {
-      alert("Error: no se pudo generar la dirección");
+      alert("No se pudo obtener la dirección.");
     }
-  } catch (error) {
-    console.error("Error al conectar con el servidor:", error);
-    alert("No se pudo conectar con el servidor backend.");
+  } catch (e) {
+    alert("❌ Error al conectar con el servidor backend.");
+    console.error(e);
   }
 }
 
-function mostrarSaldo() {
-  // Reemplaza esta URL con tu endpoint real de saldo si es diferente
-  fetch("https://138.68.94.212:3000/saldo")
-    .then(res => res.json())
-    .then(data => {
-      if (data.saldo !== undefined) {
-        const ventana = document.getElementById("saldo");
-        ventana.innerText = `💰 Saldo actual: ${data.saldo} DIVI`;
-        ventana.style.display = "block";
-      }
-    })
-    .catch(err => console.error("Error al obtener saldo:", err));
+// 📤 Enviar DIVI
+async function enviarDivi() {
+  const destino = prompt("📬 Dirección de destino:");
+  const cantidad = prompt("💸 Cantidad de DIVI a enviar:");
+
+  if (!destino || !cantidad) return;
+
+  try {
+    const res = await fetch(`${backendURL}/send`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ destino, cantidad: parseFloat(cantidad) })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      alert("✅ Transacción enviada con éxito. ID:\n" + data.txid);
+    } else {
+      alert("❌ Error al enviar: " + data.message);
+    }
+  } catch (e) {
+    alert("❌ No se pudo enviar la transacción.");
+    console.error(e);
+  }
 }
 
-// Funciones aún no implementadas pero mantenidas para estructura
-function enviarDIVI() {
-  alert("Función 'Enviar DIVI' en desarrollo.");
+// 🏛️ Crear bóveda con retención
+async function crearBoveda() {
+  const cantidad = prompt("🏦 ¿Cuántos DIVI deseas guardar en la bóveda?");
+  if (!cantidad || isNaN(cantidad)) return;
+
+  try {
+    const res = await fetch(`${backendURL}/create-vault`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cantidad: parseFloat(cantidad) })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      alert("🏰 Bóveda creada con éxito. TXID:\n" + data.txid);
+    } else {
+      alert("❌ Error al crear bóveda: " + data.message);
+    }
+  } catch (e) {
+    alert("❌ No se pudo conectar al backend.");
+    console.error(e);
+  }
 }
 
-function crearVault() {
-  alert("Función 'Crear bóveda' en desarrollo.");
+// 💰 Mostrar saldo automáticamente
+async function mostrarSaldo() {
+  try {
+    const res = await fetch(`${backendURL}/balance`);
+    const data = await res.json();
+
+    if (data.saldo !== undefined) {
+      const saldoDiv = document.getElementById("saldo");
+      saldoDiv.innerText = `💰 Saldo actual: ${data.saldo} DIVI`;
+      saldoDiv.style.display = "block";
+    }
+  } catch (e) {
+    console.error("❌ No se pudo consultar el saldo:", e);
+  }
 }
-
-
