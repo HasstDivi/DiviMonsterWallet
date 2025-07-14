@@ -1,29 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const depositButton = document.getElementById("depositar");
-  const direccionDiv = document.getElementById("direccion");
+async function depositarDivi() {
+  try {
+    const respuesta = await fetch('https://138.68.94.212:3000/deposit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-  let direccionGenerada = null;
-
-  depositButton.addEventListener("click", async () => {
-    if (direccionGenerada) {
-      direccionDiv.textContent = "Dirección de depósito: " + direccionGenerada;
-      return;
+    const data = await respuesta.json();
+    if (data.direccion) {
+      alert("Tu dirección de depósito es:\n" + data.direccion);
+    } else {
+      alert("Error: no se pudo generar la dirección");
     }
-
-    try {
-      const res = await fetch("http://TU_IP_DEL_SERVIDOR:3000/api/deposit-address", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-
-      const data = await res.json();
-      direccionGenerada = data.address;
-      direccionDiv.textContent = "Dirección de depósito: " + direccionGenerada;
-    } catch (err) {
-      direccionDiv.textContent = "Error al obtener la dirección";
-      console.error(err);
-    }
-  });
-});
+  } catch (error) {
+    console.error("Error al conectar con el servidor:", error);
+    alert("No se pudo conectar con el servidor backend.");
+  }
+}
