@@ -1,6 +1,6 @@
 async function depositarDivi() {
   try {
-    const respuesta = await fetch('https://138.68.94.212:3000/deposit', {
+    const respuesta = await fetch("https://138.68.94.212:3000/deposit", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
