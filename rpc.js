@@ -1,6 +1,6 @@
 const RPC_PROXY_URL = 'http://138.68.94.212:3000/rpc-proxy'; // Cambia por tu IP si es distinta
 
-async function rpcCall(method, params = []) {
+window.rpcCall = async function(method, params = []) {
   try {
     const response = await fetch(RPC_PROXY_URL, {
       method: 'POST',
@@ -8,6 +8,8 @@ async function rpcCall(method, params = []) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        jsonrpc: '1.0',
+        id: 1,
         method,
         params
       })
@@ -20,7 +22,8 @@ async function rpcCall(method, params = []) {
     console.error(`❌ Error al llamar al método ${method}:`, err);
     throw err;
   }
-}
+};
+
 
 
 
