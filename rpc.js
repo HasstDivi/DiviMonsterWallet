@@ -1,8 +1,8 @@
-const RPC_PROXY_URL = 'http://138.68.94.212:3000/rpc-proxy'; // o la IP correcta
+const RPC_PROXY_URL = 'http://138.68.94.212:3000'; // o la IP correcta
 
 window.rpcCall = async function(method, params = []) {
   try {
-    const response = await fetch(RPC_PROXY_URL, {
+    const response = await fetch(`${RPC_PROXI_URL},/${method}` , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
