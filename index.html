@@ -4,19 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DiviMonsterWallet</title>
-  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <img src="divimonster.png" alt="DiviMonster" />
-  <h1>DiviMonsterWallet</h1>
-  <p>La billetera más monstruosa de Divi</p>
+  <div class="contenedor">
+    <img src="divimonster.png" alt="DiviMonster" class="logo" />
+    <h1>DiviMonsterWallet</h1>
+    <p>La billetera más monstruosa de Divi</p>
 
-  <button onclick="depositarDivi()">🔥 Depositar DIVI</button>
-  <button onclick="enviarDivi()">📤 Enviar DIVI</button>
-  <button onclick="crearBoveda()">🏛️ Crear bóveda</button>
-
-  <div id="saldo"></div>
+    <div class="botones">
+      <button onclick="verSaldo()">🔍 Ver saldo</button>
+      <button onclick="enviarDivi()">📤 Enviar DIVI</button>
+      <button onclick="crearVault()">🛡️ Crear bóveda</button>
+      <button onclick="depositarDivi()">💰 Depositar DIVI</button>
+      <button onclick="generarDireccion()">🆕 Generar dirección</button>
+      <button onclick="verDireccion()">📬 Ver dirección</button>
+      <button onclick="verRecompensas()">🎁 Ver recompensas</button>
+    </div>
+    
+    <div id="resultado" class="resultado"></div>
+  </div>
 
   <script src="wallet.js"></script>
 </body>
 </html>
+
