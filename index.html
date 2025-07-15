@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DiviMonsterWallet</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="wallet.js" defer></script>
 </head>
 <body>
   <div class="contenedor">
@@ -15,14 +16,14 @@
     <div class="botones">
       <button onclick="verSaldo()">🔍 Ver saldo</button>
       <button onclick="enviarDivi()">📤 Enviar DIVI</button>
-      <button onclick="crearVault()">📦 Crear bóveda</button>
-      <button onclick="depositarDivi()">🔥 Depositar DIVI</button>
+      <button onclick="crearVault()">🏦 Crear bóveda</button>
+      <button onclick="depositarDivi()">💰 Depositar DIVI</button>
       <button onclick="generarDireccion()">➕ Generar dirección</button>
       <button onclick="verDireccion()">📫 Ver dirección</button>
-      <button onclick="probarConexion()">🔍 Probar conexión</button>
+      <button onclick="probarConexion()">📡 Probar conexión</button>
     </div>
+    
+    <div id="resultado"></div>
   </div>
-
-  <script src="wallet.js"></script>
 </body>
 </html>
