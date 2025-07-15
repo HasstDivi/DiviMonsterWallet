@@ -1,59 +1,33 @@
 body {
-  background-color: #1a1a1a;
-  font-family: 'Arial', sans-serif;
-  color: #00ffe0;
+  font-family: Arial, sans-serif;
+  background: #101010;
+  color: #fff;
   text-align: center;
   padding: 20px;
-  margin: 0;
 }
 
-img {
-  width: 150px;
-  border-radius: 50%;
-  margin-bottom: 20px;
-  border: 3px solid #00ffe0;
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #0f0;
 }
 
-h1 {
-  font-size: 2em;
-  color: #00ffe0;
-}
-
-p {
-  font-size: 1.2em;
-  color: #ffaa00;
-  margin-bottom: 30px;
-}
-
-button {
+.botones button {
   display: block;
-  margin: 10px auto;
-  padding: 12px 20px;
-  background-color: #00ffe0;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 16px;
+  background: #0f0;
   color: #000;
   border: none;
-  border-radius: 12px;
-  font-size: 1em;
-  font-weight: bold;
+  border-radius: 5px;
   cursor: pointer;
-  width: 80%;
-  max-width: 300px;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #00cccc;
+.botones button:hover {
+  background: #0c0;
 }
-
-#saldo {
-  margin-top: 30px;
-  font-size: 1.3em;
-  font-weight: bold;
-  color: #00ff88;
-  background-color: #222;
-  padding: 15px;
-  border-radius: 10px;
-  border: 2px solid #00ff88;
-  display: none;
-}
-
