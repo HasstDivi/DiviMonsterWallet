@@ -1,5 +1,5 @@
 let direccionUnica = null;
-const backendURL = "http://138.68.94.212:3000"; // Cambia esto si usas otro dominio/IP
+const backendURL = "http://138.68.94.212:3000"; // Cambia si usas otro dominio/IP
 
 // 🔥 Depositar DIVI (genera dirección única + muestra saldo)
 async function depositarDivi() {
@@ -27,7 +27,6 @@ async function depositarDivi() {
 async function enviarDivi() {
   const destino = prompt("📬 Dirección de destino:");
   const cantidad = prompt("💸 Cantidad de DIVI a enviar:");
-
   if (!destino || !cantidad) return;
 
   try {
@@ -49,7 +48,7 @@ async function enviarDivi() {
   }
 }
 
-// 🏛️ Crear bóveda con retención
+// 🏰 Crear bóveda con retención
 async function crearBoveda() {
   const cantidad = prompt("🏦 ¿Cuántos DIVI deseas guardar en la bóveda?");
   if (!cantidad || isNaN(cantidad)) return;
@@ -86,5 +85,54 @@ async function mostrarSaldo() {
     }
   } catch (e) {
     console.error("❌ No se pudo consultar el saldo:", e);
+  }
+}
+
+// 👁️ Ver saldo manual
+function verSaldo() {
+  mostrarSaldo();
+}
+
+// 🎯 Generar dirección
+async function generarDireccion() {
+  try {
+    const res = await fetch(`${backendURL}/new-address`);
+    const data = await res.json();
+
+    if (data.direccion) {
+      direccionUnica = data.direccion;
+      alert("🎯 Dirección generada:\n" + direccionUnica);
+    } else {
+      alert("❌ No se pudo generar dirección.");
+    }
+  } catch (e) {
+    alert("❌ Error al generar dirección.");
+    console.error(e);
+  }
+}
+
+// 📫 Ver dirección activa
+function verDireccion() {
+  if (direccionUnica) {
+    alert("📫 Tu dirección actual es:\n" + direccionUnica);
+  } else {
+    alert("❌ No has generado una dirección aún.");
+  }
+}
+
+// 🎉 Ver recompensas de staking
+async function verRecompensas() {
+  try {
+    const res = await fetch(`${backendURL}/recompensas`);
+    const data = await res.json();
+
+    if (data.recompensas !== undefined) {
+      alert("🎉 Recompensas actuales: " + data.recompensas + " DIVI");
+    } else {
+      alert("❌ No se pudieron obtener las recompensas.");
+    }
+  } catch (e) {
+    alert("❌ Error al consultar recompensas.");
+    console.error(e);
   }
 }
