@@ -2,28 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DiviMonsterWallet</title>
   <link rel="stylesheet" href="style.css" />
   <script src="wallet.js" defer></script>
 </head>
 <body>
   <div class="contenedor">
-    <img src="divimonster.png" alt="DiviMonster" style="height: 120px" />
+    <img src="divimonster.png" alt="DiviMonster" />
     <h1>DiviMonsterWallet</h1>
     <p>La billetera más monstruosa de Divi</p>
 
     <div class="botones">
       <button onclick="verSaldo()">🔍 Ver saldo</button>
       <button onclick="enviarDivi()">📤 Enviar DIVI</button>
-      <button onclick="crearVault()">🏦 Crear bóveda</button>
+      <button onclick="crearVault()">📦 Crear bóveda</button>
       <button onclick="depositarDivi()">💰 Depositar DIVI</button>
-      <button onclick="verDireccion()">📫 Ver dirección</button>
-      <button onclick="probarConexion()">📡 Probar conexión</button>
+      <button onclick="verDireccion()">🔗 Ver dirección</button>
+      <button onclick="verRecompensas()">🎁 Ver recompensas</button>
+      <button onclick="comprobarConexion()">🔌 Comprobar conexión</button>
     </div>
-    
-    <div id="resultado"></div>
-  </div>
 
+    <div id="resultado" class="resultado"></div>
+  </div>
 </body>
 </html>
+
