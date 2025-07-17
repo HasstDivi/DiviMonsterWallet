@@ -4,27 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DiviMonsterWallet</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="wallet.js" defer></script>
+  <link rel="stylesheet" href="estilo.css" />
 </head>
 <body>
-  <div class="contenedor">
-    <img src="divimonster.png" alt="DiviMonster" />
+  <header>
+    <img src="divimonster.png" alt="DiviMonster" style="width: 100px;" />
     <h1>DiviMonsterWallet</h1>
     <p>La billetera más monstruosa de Divi</p>
+  </header>
 
-    <div class="botones">
-      <button onclick="verSaldo()">🔍 Ver saldo</button>
-      <button onclick="enviarDivi()">📤 Enviar DIVI</button>
-      <button onclick="crearVault()">📦 Crear bóveda</button>
-      <button onclick="depositarDivi()">💰 Depositar DIVI</button>
-      <button onclick="verDireccion()">🔗 Ver dirección</button>
-      <button onclick="verRecompensas()">🎁 Ver recompensas</button>
-      <button onclick="comprobarConexion()">🔌 Comprobar conexión</button>
-    </div>
+  <main>
+    <section>
+      <button onclick="verSaldo()">👁️ Ver saldo</button>
+      <button onclick="enviarDivi()">🚀 Enviar DIVI</button>
+      <button onclick="crearBoveda()">💼 Crear bóveda</button>
+      <button onclick="generarDireccion()">🎲 Generar dirección</button>
+      <button onclick="depositarDivi()">💸 Depositar DIVI</button>
+      <!-- Eliminados: Ver dirección, Comprobar conexión y Ver recompensas -->
+    </section>
 
-    <div id="resultado" class="resultado"></div>
-  </div>
+    <section id="estado">
+      <!-- Aquí se mostrará el estado, mensajes y resultados -->
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="staking.js"></script>
+  <script src="rpc.js"></script>
+  <script src="wallet.js"></script>
+
+  <!-- Service Worker (opcional) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('✅ Trabajador de servicio registrado'))
+        .catch((err) => console.error('❌ Error en SW:', err));
+    }
+  </script>
 </body>
 </html>
-
