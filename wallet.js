@@ -1,50 +1,75 @@
-function mostrarEstado(mensaje) {
-  document.getElementById('estado').innerHTML = mensaje;
+let direccionUnica = localStorage.getItem("direccionDivi");
+
+// Mostrar dirección única si ya fue generada
+if (direccionUnica) {
+  actualizarEstado(`📬 Dirección de depósito: ${direccionUnica}`);
 }
 
-function verSaldo() {
-  fetch('/getbalance', { method: 'POST' })
-    .then(res => res.json())
-    .then(data => mostrarEstado(`Saldo actual: ${data}`))
-    .catch(err => mostrarEstado(`Error: ${err}`));
+// ENVÍO DE DIVI
+async function enviarDivi() {
+  const destino = prompt("📬 Introduce la dirección de destino:");
+  const cantidad = prompt("📈 Introduce la cantidad de DIVI a enviar:");
+  if (!destino || !cantidad) return;
+
+  try {
+    const txid = await sendToAddress(null, destino, parseFloat(cantidad));
+    actualizarEstado(`✅ Transacción enviada. ID: ${txid}`);
+  } catch (e) {
+    actualizarEstado(`❌ Error al enviar DIVI: ${e.message}`);
+  }
 }
 
-function enviarDivi() {
-  const address = prompt("Introduce la dirección de destino:");
-  const amount = prompt("¿Cuántos DIVI quieres enviar?");
-  fetch('/sendtoaddress', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ address, amount })
-  })
-    .then(res => res.json())
-    .then(data => mostrarEstado(`Transacción enviada: ${data}`))
-    .catch(err => mostrarEstado(`Error al enviar: ${err}`));
+// DEPOSITAR DIVI (genera dirección única si no existe)
+async function depositarDivi() {
+  try {
+    if (!direccionUnica) {
+      direccionUnica = await getNewAddress();
+      localStorage.setItem("direccionDivi", direccionUnica);
+      actualizarEstado(`📪 Dirección única generada: ${direccionUnica}`);
+    } else {
+      actualizarEstado(`📬 Dirección de depósito: ${direccionUnica}`);
+    }
+  } catch (e) {
+    actualizarEstado(`❌ Error al generar dirección: ${e.message}`);
+  }
 }
 
-function crearBoveda() {
-  const address = prompt("Introduce tu dirección de depósito:");
-  const amount = prompt("Cantidad a bloquear en la bóveda:");
-  fetch('/createvault', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ address, amount })
-  })
-    .then(res => res.json())
-    .then(data => mostrarEstado(`Bóveda creada: ${data}`))
-    .catch(err => mostrarEstado(`Error al crear bóveda: ${err}`));
+// CREAR BÓVEDA
+async function crearBoveda() {
+  if (!direccionUnica) {
+    actualizarEstado("⚠️ Necesitas una dirección generada antes.");
+    return;
+  }
+
+  const cantidad = prompt("🏦 ¿Cuántos DIVI quieres poner en la bóveda?");
+  const cantidadFloat = parseFloat(cantidad);
+  if (isNaN(cantidadFloat)) return;
+
+  try {
+    const resultado = await createVault(direccionUnica, cantidadFloat);
+    actualizarEstado(`🏰 Bóveda creada con éxito: ${resultado}`);
+  } catch (e) {
+    actualizarEstado(`❌ Error creando bóveda: ${e.message}`);
+  }
 }
 
-function generarDireccion() {
-  fetch('/getnewaddress', { method: 'POST' })
-    .then(res => res.json())
-    .then(data => mostrarEstado(`Nueva dirección generada: ${data}`))
-    .catch(err => mostrarEstado(`Error al generar dirección: ${err}`));
+// VER RECOMPENSAS
+async function verRecompensas() {
+  if (!direccionUnica) {
+    actualizarEstado("⚠️ No se puede consultar recompensas sin dirección.");
+    return;
+  }
+
+  try {
+    const rewards = await getVaultRewards(direccionUnica);
+    actualizarEstado(`🎁 Recompensas: ${rewards} DIVI`);
+  } catch (e) {
+    actualizarEstado(`❌ Error al ver recompensas: ${e.message}`);
+  }
 }
 
-function depositarDivi() {
-  fetch('/getnewaddress', { method: 'POST' })
-    .then(res => res.json())
-    .then(data => mostrarEstado(`Deposita tus DIVI en esta dirección: ${data}`))
-    .catch(err => mostrarEstado(`Error al obtener dirección de depósito: ${err}`));
+// Mostrar resultado en la interfaz
+function actualizarEstado(mensaje) {
+  const estado = document.getElementById("estado");
+  estado.innerText = mensaje;
 }
