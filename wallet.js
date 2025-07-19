@@ -6,18 +6,24 @@ if (direccionUnica) {
 }
 
 // ENVÍO DE DIVI
-async function enviarDivi() {
-  const destino = prompt("📬 Introduce la dirección de destino:");
-  const cantidad = prompt("📈 Introduce la cantidad de DIVI a enviar:");
-  if (!destino || !cantidad) return;
-
+async function depositarDivi() {
   try {
-    const txid = await sendToAddress(null, destino, parseFloat(cantidad));
-    actualizarEstado(`✅ Transacción enviada. ID: ${txid}`);
+    if (!direccionUnica) {
+      direccionUnica = await getNewAddress();
+      localStorage.setItem("direccionDivi", direccionUnica);
+      document.getElementById("direccion").innerText = direccionUnica;
+      mostrarSaldo(direccionUnica); // <--- AQUÍ
+      actualizarEstado(`✅ Dirección única generada: ${direccionUnica}`);
+    } else {
+      document.getElementById("direccion").innerText = direccionUnica;
+      mostrarSaldo(direccionUnica); // <--- AQUÍ TAMBIÉN
+      actualizarEstado(`📌 Dirección de depósito: ${direccionUnica}`);
+    }
   } catch (e) {
-    actualizarEstado(`❌ Error al enviar DIVI: ${e.message}`);
+    actualizarEstado(`❌ Error al generar dirección: ${e.message}`);
   }
 }
+
 
 // DEPOSITAR DIVI (genera dirección única si no existe)
 async function depositarDivi() {
