@@ -41,6 +41,24 @@ async function crearBoveda() {
     actualizarEstado("⚠️ Necesitas una dirección generada antes.");
     return;
   }
+// ENVIAR DIVI
+async function enviarDivi() {
+  const destino = document.getElementById("destino").value;
+  const cantidad = document.getElementById("cantidad").value;
+
+  if (!destino || !cantidad) {
+    actualizarEstado("⚠️ Dirección o cantidad vacía");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${BASE_URL}/send?to=${destino}&amount=${cantidad}`);
+    const txid = await res.text();
+    actualizarEstado(`✅ Transacción enviada. ID: ${txid}`);
+  } catch (e) {
+    actualizarEstado(`❌ Error al enviar DIVI: ${e.message}`);
+  }
+}
 
   const cantidad = prompt("🏦 ¿Cuántos DIVI quieres poner en la bóveda?");
   const cantidadFloat = parseFloat(cantidad);
