@@ -16,6 +16,18 @@
   <main>
     <section>
       <button onclick="enviarDivi()">📤 Enviar DIVI</button>
+      <h3>Enviar DIVI</h3>
+
+<label for="destino">Dirección de destino:</label><br>
+<input type="text" id="destino" placeholder="Dxxxx..." style="width: 100%;"><br><br>
+
+<label for="cantidad">Cantidad a enviar:</label><br>
+<input type="number" id="cantidad" placeholder="0.00" step="0.0001" style="width: 100%;"><br><br>
+
+<button onclick="enviarDivi()">Enviar DIVI</button>
+
+<hr>
+
       <button onclick="depositarDivi()">📥 Depositar DIVI</button>
       <div id="direccion" style="margin-top: 10px; font-weight: bold; color: green;"></div>
       <button onclick="crearBoveda()">🏦 Crear bóveda</button>
