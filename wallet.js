@@ -25,6 +25,7 @@ async function depositarDivi() {
     if (!direccionUnica) {
       direccionUnica = await getNewAddress();
       localStorage.setItem("direccionDivi", direccionUnica);
+      document.getElementById("direccion").innerText = direccionUnica;
       actualizarEstado(`📪 Dirección única generada: ${direccionUnica}`);
     } else {
       actualizarEstado(`📬 Dirección de depósito: ${direccionUnica}`);
