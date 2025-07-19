@@ -1,4 +1,4 @@
-const API_URL = "http://138.68.94.212:3000";
+const API_URL = "http://divimonstruo.com";
 
 async function getNewAddress() {
   const response = await fetch(`${API_URL}/getnewaddress`, {
