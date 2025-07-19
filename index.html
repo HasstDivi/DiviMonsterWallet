@@ -1,48 +1,67 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>DiviMonsterWallet</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #101010;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    #estado {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    img {
+      width: 100px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="divimonster.png" alt="DiviMonster" style="width: 100px;" />
-    <h1>DiviMonsterWallet</h1>
-    <p>La billetera más monstruosa de Divi 🐲</p>
-  </header>
 
-  <main>
-    <section>
+  <img src="divimonster.png" alt="DiviMonster"><br>
+  <h1>DiviMonsterWallet</h1>
+  <p>La billetera más monstruosa de Divi 🧟‍♂️</p>
 
-<label for="destino">Dirección de destino:</label><br>
-<input type="text" id="destino" placeholder="Dxxxx..." style="width: 100%;"><br><br>
+  <hr>
 
-<label for="cantidad">Cantidad a enviar:</label><br>
-<input type="number" id="cantidad" placeholder="0.00" step="0.0001" style="width: 100%;"><br><br>
+  <!-- Enviar DIVI -->
+  <h2>Enviar DIVI</h2>
+  <label>Dirección de destino:</label><br>
+  <input type="text" id="destino" placeholder="Pega aquí la dirección"><br>
 
-<button onclick="enviarDivi()">Enviar DIVI</button>
+  <label>Cantidad a enviar:</label><br>
+  <input type="number" id="cantidad" placeholder="Cantidad"><br>
 
-<hr>
+  <button onclick="enviarDivi()">Enviar DIVI</button>
 
-      <button onclick="depositarDivi()">📥 Depositar DIVI</button>
-      <div id="direccion" style="margin-top: 10px; font-weight: bold; color: #33ff33;"></div>
-      <div id="saldo" style="margin-top: 5px; font-weight: bold; color: #00ccff;"></div>
-      <div id="direccion" style="margin-top: 10px; font-weight: bold; color: green;"></div>
-      <button onclick="crearBoveda()">🏦 Crear bóveda</button>
-      <button onclick="verRecompensas()">🎁 Ver recompensas</button>
-      <!-- Zona para mostrar mensajes (estado) -->
-      <div id="estado" style="margin-top: 15px; font-weight: bold; color: #007700;"></div>
+  <hr>
 
-    </section>
+  <!-- Depositar DIVI -->
+  <h2>Depositar DIVI</h2>
+  <button onclick="depositarDivi()">Depositar DIVI</button><br>
+  <p id="direccion"></p>
+  <p id="saldo"></p>
 
-    <section id="estado">
-      <!-- Aquí se mostrará el saldo, dirección y resultado -->
-    </section>
-  </main>
+  <hr>
 
+  <!-- Otras opciones -->
+  <button onclick="crearBoveda()">🗄️ Crear bóveda</button>
+  <button onclick="verRecompensas()">🎁 Ver recompensas</button>
+
+  <div id="estado"></div>
+
+  <!-- Scripts -->
   <script src="wallet.js"></script>
   <script src="rpc.js"></script>
+
 </body>
 </html>
